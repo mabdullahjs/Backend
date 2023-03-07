@@ -4,11 +4,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const routes = require('./routes/routes')
+const userRoutes = require('./routes/user')
 
+
+//cors for production
 var cors = require('cors')
-
 app.use(cors()) 
 
+//middleware
 app.use(express.json())
 app.use((req, res, next)=>{
     console.log(req.path , req.method);
@@ -23,5 +26,6 @@ mongoose.connect(process.env.MONGO_DB)
     console.log(error);
 })
 
-
-app.use('/api/username' , routes)
+//routes
+app.use('/api/username' , routes);
+app.use('/api/user' , userRoutes);
